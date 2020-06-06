@@ -1,0 +1,140 @@
+.ck-editor__editable,
+textarea {
+    min-height: 150px;
+}
+
+.datatable {
+    width: 100% !important;
+}
+
+.dataTables_length,
+.dataTables_filter,
+.dt-buttons {
+    margin-bottom: 0.333em;
+}
+
+.dt-buttons .btn {
+    margin-left: 0.333em;
+    border-radius: 0;
+}
+
+.table.datatable {
+    box-sizing: border-box;
+    border-collapse: collapse;
+}
+
+table.dataTable thead th {
+    border-bottom: 2px solid #dee2e6;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.select2 {
+    max-width: 100%;
+    width: 100%;
+}
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    background-image: none;
+}
+
+.btn-group-xs > .btn,
+.btn-xs {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+/*Dark*/
+/**{
+  margin: 0;
+  padding: 0;
+}
+body{
+  background: white;
+  overflow: hidden;
+  transition: .5s ease;
+}
+nav{
+  height: 80px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid silver;
+}
+h1{
+  text-align: center;
+  margin-top: 6em;
+}
+h3{
+  text-align: center;
+  margin-top: 20px;
+}
+button{
+  border-radius: 50px;
+  border: none;
+  background-color: #d9d9d9;
+  height: 40px;
+  width: 120px;
+  right: 46.5em;
+  margin-top: 2em;
+  position: absolute;
+}
+.button{
+  position: absolute;
+  right: 50px;
+  top: 40px;
+  transform: translateY(-50%);
+  height: 40px;
+  width: 130px;
+  border-radius: 5px;
+}
+
+.center{
+  position: absolute;
+  top: 50%;
+  left: 28%;
+  height: 24px;
+  width: 48px;
+  border-radius: 20px;
+  transform: translate(-50%, -50%);
+}
+.center input{
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: #e6e6e6;
+  border-radius: 20px;
+  outline: none;
+  cursor: pointer;
+  transition: .5s;
+  -webkit-appearance: none;
+  box-shadow: inset 0 0 5px rgba(0,0,0,.2);
+}
+input:before{
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  border-radius: 20px;
+  background: linear-gradient(#fff,#f2f2f2,#e6e6e6,#d9d9d9);
+
+}
+input:checked{
+  background: #000;
+}
+input:checked:before{
+  left: 24px;
+}
+
+.active{
+  background: #1a1a1a;
+  color: white;
+}
+
+*/
