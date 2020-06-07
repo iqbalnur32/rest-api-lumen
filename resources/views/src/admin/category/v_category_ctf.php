@@ -39,13 +39,13 @@
 			</div>
 		</div>
 		<div class="col-lg-6">
-			<table 	id="myTable">
+			<table  class="table" id="myTable">
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Category Name</th>
-						<th>Description</th>
-						<th><i class="fas fa-fw fa-cogs"></i></th>
+						<th class="text-dark text-center">ID</th>
+						<th class="text-dark text-center">Category Name</th>
+						<th class="text-dark text-center">Description</th>
+						<th class="text-dark text-center"><i class="fas fa-fw fa-cogs"></i></th>
 					</tr>
 				</thead>
 				<?php $i = 1; foreach ($kategory as $key): ?>
@@ -56,7 +56,7 @@
 							<td class="text-dark text-center"><?= $key->description?></td>
 							<td align="center">
 								<button class="btn btn-warning btn-sm open_modal_category" value="<?=$key->id_category?>"><i class="fas fa-pencil-alt"></i></button>
-								 <button class="btn btn-danger btn-sm delete-category" value="<?= $key->id_category?>"><i class="fas fa-trash"></i></button>
+								<button class="btn btn-danger btn-sm delete-category" value="<?= $key->id_category?>"><i class="fas fa-trash"></i></button>
 							</td>
 						</tr>
 					</tbody>

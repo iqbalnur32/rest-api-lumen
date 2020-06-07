@@ -55,6 +55,8 @@
   <!-- Custom scripts for all pages-->
   <script src="/template/js/sb-admin-2.min.js"></script>
 
+  <!-- Sweet Alert -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- Page level plugins -->
   <script src="/template/vendor/chart.js/Chart.min.js"></script>
 

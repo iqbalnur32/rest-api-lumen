@@ -208,15 +208,15 @@
 							<p class="text-gray-900" id="hint"></p>
 							<p class="text-gray-900">Author: <span id="author"></span></p>
 							<div class="padding-bottom" style="padding-bottom: 15px;">
-								<form action="<?= url('users/challange')?>" method="POST">
+								<form id="frmProducts" name="frmProducts" novalidate="">
 									<div class="row">
 										<div class="col-lg-10">
 											<input class="form-control" type="hidden" id="id_task" name="id_task" required="">	
-											<input class="form-control" type="text" name="flag" required="">	
+											<input class="form-control" type="text" name="flag" required="" id="flag">	
 										</div>
 										<div class="col-lg-2">
 											<div class="">
-												<button class="btn btn-md btn-outline-secondary">SUBMIT</button>
+												<button class="btn btn-md btn-outline-secondary" id="btn-save">SUBMIT</button>
 											</div>
 										</div>
 									</div>

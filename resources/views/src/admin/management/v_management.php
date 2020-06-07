@@ -34,7 +34,7 @@
 							<th>Email</th>
 							<th>Score</th>
 							<th>Level</th>
-							<th><i class="fas fa-cogs"></i></th>
+							<th class="text-center"><i class="fas fa-cogs"></i></th>
 						</thead>
 						<?php $i=1; foreach ($management as $key): ?>
 							<tbody id="management">
@@ -46,6 +46,7 @@
 									<td class="text-dark"><?= $key->name_level?></td>
 									<td align="center">
 										<button class="btn btn-warning btn-sm open_modal_management" value="<?= $key->id_users?>"><i class="fas fa-pencil-alt"></i></button>
+										<button class="btn btn-danger btn-sm delete-management" value="<?= $key->id_users?>"><i class="fas fa-trash"></i></button>
 									</td>
 								</tr>
 							</tbody>

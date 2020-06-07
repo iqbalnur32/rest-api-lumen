@@ -48,6 +48,7 @@ class CategoryCTF extends Controller
 		return response()->json($edit_category);
 	}
 
+	// Edit Category Process
 	public function categoryEditProcess(Request $request, $id_category)
 	{
 		try {
@@ -71,6 +72,7 @@ class CategoryCTF extends Controller
 		}
 	}
 
+	// Delete Category
 	public function categoryDelete($id_category)
 	{
 		$category_delete = kategori::destroy($id_category);

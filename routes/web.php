@@ -52,17 +52,22 @@ $router->group(['middleware' => ['session_admin', 'is_admin'], 'prefix' => 'admi
 	// Challange CTF
 	$router->get('/add-challange', 'AdminController@addChallange');
 	$router->post('/add-challange', 'AdminController@addChallangeProcess');
+	$router->get('/add-challange/edit/{id_task}', 'AdminController@addChallangeEdit');
+	$router->put('/add-challange/edit/{id_task}', 'AdminController@addChallangeEditProcess');
+	$router->get('/add-challange/delete/{id_task}', 'AdminController@addChallangeDelete');
 
 	// Pengumuman CTF
 	$router->get('/add-pengumuman', 'AdminController@addPengumuman');
 	$router->post('/add-pengumuman', 'AdminController@addPengumumanProcess');
 	$router->get('/add-pengumuman/edit/{id_pengumuman}', 'AdminController@editPengumuman');
 	$router->put('/add-pengumuman/edit/{id_pengumuman}', 'AdminController@editPengumumanProcess');
+	$router->get('/add-pengumuman/delete/{id_pengumuman}', 'AdminController@pengumumanDelete');
 
 	// Management User
 	$router->get('/management-user', 'AdminController@managementUser');
 	$router->post('/management-user/add', 'AdminController@manegemntUserAdd');
 	$router->get('/management-user/edit/{id_users}', 'AdminController@managementEdit');
 	$router->put('/management-user/edit/{id_users}', 'AdminController@managementEditProcess');
+	$router->get('/management-user/delete/{id_users}', 'AdminController@managementDelete');
 
 });

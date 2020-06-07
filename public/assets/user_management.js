@@ -63,11 +63,35 @@ $(document).ready(function(){
 				console.log(management);*/
 				$('#frmProducts').trigger("reset");
                 $('#myModal').modal('hide');
+                
+                swal("Done!", "It was succesfully edit data!", "success");
                 setInterval('location.reload()', 1000);
 			},
 			error: function(error){
+
+				swal("Error deleting!", "Please try again", "error");
 				console.log(error);
 			}
+		})
+	});
+
+	// Delete Category
+	$(document).on('click', '.delete-management', function() {
+		var id_users = $(this).val();
+
+		$.ajax({
+			type: 'GET',
+			url: url + 'admin/management-user/delete/' + id_users,
+			success: function(data){
+				console.log(data);
+				$('#management' + id_users).remove();
+				swal("Done!", "It was succesfully deleted!", "success");
+				setInterval('location.reload()', 1000);
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+                swal("Error deleting!", "Please try again", "error");
+                setInterval('location.reload()', 1000);
+            }
 		})
 	})
 

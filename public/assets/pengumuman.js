@@ -65,8 +65,34 @@ $(document).ready(function() {
 
 		 		$('#frmProducts').trigger("reset");
                 $('#myModal').modal('hide');
+                swal("Done!", "It was succesfully edit data!", "success");
 		 	}
 		 })
+	});
+
+	// Delete Pengumuman
+	$(document).on('click', '.pengumuman_delete', function(){
+		var id_pengumuman = $(this).val();
+		var myUrl = "http://localhost:8080/"
+
+		$.ajax({
+			type: 'GET',
+			url: myUrl + 'admin/add-pengumuman/delete/' + id_pengumuman,
+			success: function(data){
+				console.log(data);
+
+				$('#pengumuman' + id_pengumuman).remove();
+				
+				swal("Done!", "It was succesfully deleted!", "success");
+				
+				setInterval('location.reload()', 1000);
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+                swal("Error deleting!", "Please try again", "error");
+                // console.log(thrownError);
+                setInterval('location.reload()', 1000);
+            }
+		})
 	})
 
 })

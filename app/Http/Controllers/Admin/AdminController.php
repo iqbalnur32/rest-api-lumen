@@ -5,8 +5,10 @@ use Illuminate\Http\Request;
 use DB;
 use Validator;
 use App\Models\Users;
+use App\Models\Pengumuman;
 use App\Models\Score_CTF as Score;
 use App\Models\Users_Level as Level;
+use App\Models\Task_CTF as Task;
 
 class AdminController extends Controller
 {
@@ -21,12 +23,48 @@ class AdminController extends Controller
 		return view('src.admin.v_home');
 	}
 
+	// Add Challange
 	public function addChallange()
 	{
 		$categori_ctf = DB::table('category_ctf')->get();
-		return view('src.admin.challange.v_addchallange', ['kategori' => $categori_ctf]);
+		$task = Task::all();
+		return view('src.admin.challange.v_addchallange', ['kategori' => $categori_ctf, 'task' => $task]);
 	}
 
+	// Edit Challange 
+	public function addChallangeEdit($id_task)
+	{
+		$edit_task = task::where('id_task', $id_task)->first();
+
+		return response()->json($edit_task);
+	}
+
+	// Edit Challange Process
+	public function addChallangeEditProcess(Request $request, $id_task)
+	{
+		$task = array(
+			'id_task' => $request->input('id_task'), 
+			'name_task' => $request->input('name_task'), 
+			'id_category' => $request->input('id_category'), 
+			'author' => $request->input('author'), 
+			'task_point' => $request->input('task_point'), 
+			'flag' => $request->input('flag'), 
+			'hint' => $request->input('hint'), 
+		);
+
+		DB::table('task_ctf')->where('id_task', $id_task)->update($task);
+		return response()->json($task);
+	}
+
+	// Delete Challange 
+	public function addChallangeDelete($id_task)
+	{
+		$delete = Task::find($id_task)->delete();
+
+		return response()->json($delete);
+	}
+
+	// Add Challange Process
 	public function addChallangeProcess(Request $request)
 	{
 		try {
@@ -48,18 +86,21 @@ class AdminController extends Controller
 		}
 	}
 
+	// Add Pengumuman
 	public function addPengumuman()
 	{
 		$notif = DB::table('pengumuman_ctf')->get();
 		return view('src.admin.v_pengumuman', ['notif' => $notif]);
 	}
 
+	// Edit Pengumuman
 	public function editPengumuman($id_pengumuman)
 	{
 		$edit_pengumuman = DB::table('pengumuman_ctf')->select(['*'])->where('id_pengumuman', $id_pengumuman)->first();
 		return response()->json($edit_pengumuman);
 	}
 
+	// Edit Pengumuman Process
 	public function editPengumumanProcess(Request $request, $id_pengumuman)
 	{
 		try {
@@ -77,6 +118,7 @@ class AdminController extends Controller
 		}
 	}
 
+	// Add Pengumuman Process
 	public function addPengumumanProcess(Request $request)
 	{
 		try {
@@ -94,6 +136,13 @@ class AdminController extends Controller
 		}
 	}
 
+	// Delete Pengumuman
+	public function pengumumanDelete($id_pengumuman)
+	{
+		$delete_pengumuman = Pengumuman::find($id_pengumuman)->delete();
+		return response()->json($delete_pengumuman);
+	}
+
 	// Management User
 	public function managementUser()
 	{
@@ -107,6 +156,7 @@ class AdminController extends Controller
 		return view('src.admin.management.v_management', ['level' => $level, 'management' => $management]);
 	}
 
+	// Add Management User Process
 	public function manegemntUserAdd(Request $request)
 	{
 		try {
@@ -162,6 +212,7 @@ class AdminController extends Controller
 		}
 	}
 
+	// Edit Management User 
 	public function managementEdit($id_users)
 	{
 		$select = ['users_ctf.username', 'users_ctf.email', 'score_ctf.score', 'users_ctf.level_id', 'users_level.name_level'];
@@ -174,6 +225,7 @@ class AdminController extends Controller
 		return response()->json($edit_management);
 	}
 
+	// Edit Management User Process
 	public function managementEditProcess(Request $request, $id_users)
 	{
 		try {
@@ -223,6 +275,18 @@ class AdminController extends Controller
 		} catch (Exception $e) {
 			return response($e);
 		}
+	}
+
+	// Delete Management
+	public function managementDelete($id_users)
+	{
+		$users = Users::find($id_users)->delete();
+		$score = Score::find($id_users)->delete();
+
+		return response()->json([
+			$users,
+			$score
+		]);
 	}
 }
 ?>

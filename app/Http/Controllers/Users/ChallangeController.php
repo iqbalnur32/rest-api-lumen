@@ -60,13 +60,15 @@ class ChallangeController extends Controller
 				$this->addScore($request);
 				
 				DB::commit();
-				return redirect('/users/challange');
+				// return redirect('/users/challange');
+				return response()->json($data);
 			}else{
-				echo "flag ngak ada";
+				// return response()->json([401, 'Flag Ngak Ada']);
+				echo 'flag ngak ada';
 			}
 		} catch (Exception $e) {
 			DB::rollback();
-			print_r($e);
+			return response()->json($e);
 		}
 	}
 

@@ -21,7 +21,7 @@
 						<tr>
 							<td class="text-dark sidebar-brand-text mx-3"><?= $no++?></td>
 							<td class="text-dark sidebar-brand-text mx-3"><?= $key->username ?></td>
-							<td class="text-dark sidebar-brand-text mx-3"><?= $key->username ?></td>
+							<td class="text-dark sidebar-brand-text mx-3"><?= $key->score ?></td>
 						</tr>
 					</tbody>
 				<?php endforeach ?>

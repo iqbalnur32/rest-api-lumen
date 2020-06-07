@@ -3,7 +3,7 @@ $(document).ready(function() {
 	// Base Url
 	var url = "http://localhost:8080/";
 
-	$('#myTable').DataTable();
+	// $('#myTable').DataTable();
 
 	// Opem Modal
 	$(document).on('click', '.open_modal_category', function(){
@@ -51,17 +51,20 @@ $(document).ready(function() {
 			success: function(data){
 		 		// console.log(data);
 				var category = '<tr id="category' + data.id_category + '"><td class="text-center text-dark">' + data.id_category + '</td><td class="text-center text-dark">' + data.category_name + '</td><td class="text-center text-dark">' + data.description + '</td>';
-		 		category += '<td><button class="btn btn-warning btn-sm open_modal" value="' + data.id_category + '"><i class="fas fa-pencil-alt"></button>';
+		 		category += '<td><button class="btn btn-warning btn-sm open_modal" value="' + data.id_category + '"><i class="fas fa-pencil-alt"></i></button>';
+		 		category += '<button class="btn btn-danger btn-sm delete-category" value="' + data.id_category + '"><i class="fas fa-trash"></button></td></tr>';
 		 		
-		 		// console.log(category);
-
 		 		$("#category" + id_category).replaceWith(category).html();
-
-
+		 		
+		 		swal("Done!", "It was succesfully edit data!", "success");
+		 		
 		 		$('#frmProducts').trigger("reset");
                 $('#myModal').modal('hide');
+                
+                setInterval('location.reload()', 1000);
 			},
 			error: function(error){
+				swal("Error edit!", "Please try again", "error");
 				console.log(error);
 			}
 		})
@@ -77,8 +80,11 @@ $(document).ready(function() {
 			success: function(data){
 				console.log(data);
                 $("#category" + id_category).remove();
+                swal("Done!", "It was succesfully delete data!", "success");
+                setInterval('location.reload()', 1000);
 			},
 			error: function(error){
+				swal("Error deleting!", "Please try again", "error");
 				console.log(error);
 			}
 		})

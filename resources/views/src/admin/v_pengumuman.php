@@ -38,7 +38,7 @@
 						<th>No</th>
 						<th>Title</th>
 						<th>Content</th>
-						<th><i class="fas fa-cogs"></i></th>
+						<th class="text-center"><i class="fas fa-cogs"></i></th>
 					</tr>
 				</thead>
 				<?php $i = 1; foreach ($notif as $key): ?>
@@ -49,6 +49,7 @@
 							<td class="text-center text-dark"><?= $key->content?></td>
 							<td align="center">
 								<button class="btn btn-warning btn-sm open_modal" value="<?=$key->id_pengumuman?>"><i class="fas fa-pencil-alt"></i></button>
+								<button class="btn btn-danger btn-sm pengumuman_delete" value="<?=$key->id_pengumuman?>"><i class="fas fa-trash"></i></button>
 							</td>
 						</tr>
 					</tbody>
