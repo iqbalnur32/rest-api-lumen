@@ -78,6 +78,9 @@ $app->routeMiddleware([
 $app->routeMiddleware([
     'is_admin' => App\Http\Middleware\isAdmin::class,
 ]);
+$app->routeMiddleware([
+    'cors' => App\Http\Middleware\CorsMiddleware::class,
+]);
 
 /*
 |--------------------------------------------------------------------------

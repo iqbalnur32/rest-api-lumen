@@ -23,6 +23,10 @@ if (!isset($_SESSION)) {
   <link href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap" rel="stylesheet"> 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="/assets/js/dataTable/dataTables.bootstrap.css">
+  
+  <!-- Morris Css -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+
   <!-- Custom styles for this template-->
   <link href="/template/css/sb-admin-2.min.css" rel="stylesheet">
 

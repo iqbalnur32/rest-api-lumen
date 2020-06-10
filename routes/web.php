@@ -36,6 +36,11 @@ $router->group(['middleware' => ['session', 'is_users'], 'prefix' => 'users', 'n
 	$router->get('/profile', 'ScoreboardController@profile');
 	$router->post('/profile/update', 'UsersController@updateProfile');
 	$router->get('/notification', 'UsersController@pengumumanUsers');
+	$router->get('/get-score', 'ScoreboardController@getScores');
+
+	// Static Data Monitoring Users
+	$router->get('/static/solved', 'HomeController@solvedStatic');
+
 });
 
 // Admin Routing 

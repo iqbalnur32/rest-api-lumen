@@ -33,19 +33,6 @@ class ScoreboardController extends Controller{
 		return $score;
 	}
 
-	// Scoreboard Data 
-	public function scoreboard()
-	{
-		$select = ['users_ctf.username', 'users_ctf.email', 'score_ctf.score'];
-		$data_score = DB::table('users_ctf')->select($select)
-					 ->join('score_ctf', 'users_ctf.id_users', '=', 'score_ctf.id_users')
-					 ->orderBy('score', 'desc')
-					 ->get();
-
-		// echo json_encode($data_score); die();
-		return view('src.users.scoreboard.v_scoreboard', ['score' => $data_score]);
-	}
-
 	public function getScores()
 	{
 		$users = DB::table('users_ctf')->get([
@@ -63,15 +50,29 @@ class ScoreboardController extends Controller{
 				'username' => $username,
 				'score' => $score
 			); 
+			array_push($score_array, $temp_array);
 		}
 
-		array_push($score_array, $temp_array);
 		$score_collection = collect($score_array);
 		$score_sorted = $score_collection->sortByDesc('score');
 
 		echo json_encode($score_sorted); die();
 	}
 
+	// Scoreboard Data 
+	public function scoreboard()
+	{
+		$select = ['users_ctf.username', 'users_ctf.email', 'score_ctf.score'];
+		$data_score = DB::table('users_ctf')->select($select)
+					 ->join('score_ctf', 'users_ctf.id_users', '=', 'score_ctf.id_users')
+					 ->orderBy('score', 'desc')
+					 ->get();
+
+		// echo json_encode($data_score); die();
+		return view('src.users.scoreboard.v_scoreboard', ['score' => $data_score]);
+	}
+
+	// profile Users
 	public function profile()
 	{
 		$select = ['users_ctf.username', 'score_ctf.score'];
@@ -79,7 +80,13 @@ class ScoreboardController extends Controller{
 				->join('score_ctf', 'users_ctf.id_users', 'score_ctf.id_users')
 				->where('users_ctf.id_users', $_SESSION['id_users'])
 				->first();
-		/*		
+
+		$solved = solved::select(['*'])
+						 ->join('task_ctf', 'solved_ctf.id_task', '=', 'task_ctf.id_task')
+						 ->where('solved_ctf.id_users', $_SESSION['id_users'])
+						 ->get();
+
+				
 		$data = DB::table('users_ctf')->select(['*'])
 				->join('score_ctf', 'users_ctf.id_users', 'score_ctf.id_users')
 				->orderBy('score_ctf.score', 'desc')
@@ -88,22 +95,19 @@ class ScoreboardController extends Controller{
 				->toArray();
 		$position = array_search('username', $data) + 1;
 		
-		print_r($position); die();
-		*/
+		// echo json_encode($solved); die();
+		
 
 		// Edit Profile
-		$edit = DB::table('users_ctf')->select(['*'])->where('id_users', $_SESSION['id_users'])->get();
+		$edit = DB::table('users_ctf')->select(['*'])->where('id_users', $_SESSION['id_users'])->first();
 
-		return view('src.users.profile.v_profile',['data' => $data_users, 'edit' => $edit]);
-	}
-
-	public function updateProfile(Request $request)
-	{
-		try {
-			
-		} catch (Exception $e) {
-			
-		}
+		return view('src.users.profile.v_profile',
+			[
+				'data' => $data_users, 
+				'edit' => $edit, 
+				'solved' => $solved
+		]
+		);
 	}
 }
 

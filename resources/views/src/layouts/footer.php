@@ -54,6 +54,10 @@
 
   <!-- Custom scripts for all pages-->
   <script src="/template/js/sb-admin-2.min.js"></script>
+ 
+  <!-- Morris JS -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
   <!-- Sweet Alert -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
