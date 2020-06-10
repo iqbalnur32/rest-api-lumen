@@ -1,6 +1,6 @@
-# Nyok CTF
+# NYOK CTF
 
-Nyok CTF sebuah platform untuk CTF yang mudah untuk di gunakan 
+NYOK CTF sebuah platform untuk CTF yang mudah untuk di gunakan 
 
 ## Author
 
