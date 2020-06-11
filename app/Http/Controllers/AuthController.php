@@ -17,6 +17,7 @@ class AuthController extends Controller
 		$this->request = $request;
 	}
 
+	// Table users_ctf
 	private $table_users = 'users_ctf';
 
 	public function login()
@@ -26,6 +27,7 @@ class AuthController extends Controller
 		return view('src/auth/v_login');
 	}
 
+	// Fungsi Login
 	public function loginProcess(Request $request)
 	{
 		try {
@@ -83,6 +85,7 @@ class AuthController extends Controller
 		return view('src.auth.v_register');
 	}
 
+	// Register Fungsi Users
 	public function registerProcess(Request $request)
 	{
 		try {
@@ -138,6 +141,7 @@ class AuthController extends Controller
 		}
 	}
 
+	// Fungsi Logout
 	public function Logout()
 	{
 		if (session_destroy()) {
