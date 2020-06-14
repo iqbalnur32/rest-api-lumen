@@ -46,15 +46,15 @@ $(document).ready(function() {
 			data: formData,
 			dataType: 'JSON',
 			success: function(data){
-				// console.log(data);
+				console.log(data);
 				
 				$('#frmProducts').trigger("reset");
 				$('#data_reversing').modal('hide');
-				
+
 				swal("Done!", "Success Flag Submit", "success");
 				setInterval('location.reload()', 1000);
-				
-				$("#btn-save").attr('disabled', 'disabled');
+
+				// $("#btn-save").attr('disabled', 'disabled');
 			},
 			error: function(error){
 				swal("Error deleting!", "Flag Tidak Di Temukan", "error");

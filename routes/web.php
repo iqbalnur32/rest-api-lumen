@@ -28,14 +28,22 @@ $router->get('/', 'Users\HomeController@landingPage');
 // Users Controller
 $router->group(['middleware' => ['session', 'is_users'], 'prefix' => 'users', 'namespace' => 'Users'], function() use($router) {
 	$router->get('/', 'HomeController@index');
-
-	// Web CTF
+	
+	// Submit Flag 
 	$router->get('/challange', 'ChallangeController@index');
 	$router->post('/challange', 'ChallangeController@CheckSubmitFlag');
+	
+	// ScoreBoard
 	$router->get('/scoreboard', 'ScoreboardController@scoreboard');
+	
+	// Profile Users
 	$router->get('/profile', 'ScoreboardController@profile');
 	$router->post('/profile/update', 'UsersController@updateProfile');
+	
+	// Pengumuman Users
 	$router->get('/notification', 'UsersController@pengumumanUsers');
+	
+	// Get Score 
 	$router->get('/get-score', 'ScoreboardController@getScores');
 
 	// Static Data Monitoring Users

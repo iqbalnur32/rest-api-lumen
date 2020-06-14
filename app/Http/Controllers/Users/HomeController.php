@@ -20,17 +20,24 @@ class HomeController extends Controller
 	// Static Data Solved
 	public function solvedStatic()
 	{
-						 
-	}
+		$checkSolvedFlag = solved::select(['solved_ctf.created_at', DB::raw('count(*) as total')])
+		->join('users_ctf', 'solved_ctf.id_users', '=', 'users_ctf.id_users')
+		->groupBy('users_ctf.username')
+		->where('users_ctf.id_users', $_SESSION['id_users'])
+		->get();
 
-	/*
-		---------------------------------------------------------------
-	*/
+		return response()->json($checkSolvedFlag);					 
+	}
 
 	// Index Home Users
 	public function index()
-	{				 
-		return view('src.users.v_home');
+	{	
+		$solved = solved::select(['*'])
+						 ->join('task_ctf', 'solved_ctf.id_task', '=', 'task_ctf.id_task')
+						 ->where('solved_ctf.id_users', $_SESSION['id_users'])
+						 ->get();
+
+		return view('src.users.v_home', ['solved' => $solved]);
 	}
 
 	// Landing Page

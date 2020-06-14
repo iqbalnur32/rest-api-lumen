@@ -15,8 +15,10 @@ class CreateSovedCtf extends Migration
     {
         Schema::create('solved_ctf', function (Blueprint $table) {
             $table->increments('id_solved');
-            $table->integer('id_users');
-            $table->integer('id_task');
+            $table->integer('id_users')->unsigned();
+            $table->integer('id_task')->unsigned();
+            $table->foreign('id_users')->references('id_users')->on('users_ctf');
+            $table->foreign('id_task')->references('id_task')->on('task_ctf');
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ class ScoreboardController extends Controller{
 		$this->request = $request;
 	}
 
-	public function getScorePerPlayer()
+	public function getScorePerUsers()
 	{
 		$score = 0;
 
@@ -31,8 +31,9 @@ class ScoreboardController extends Controller{
 		}
 
 		return $score;
-	}
+	}		
 
+	// Fungsi Get Score Masih Bugs
 	public function getScores()
 	{
 		$users = DB::table('users_ctf')->get([
@@ -42,7 +43,7 @@ class ScoreboardController extends Controller{
 		$score_array = [];
 
 		foreach ($users as $key) {
-			$score = $this->getScorePerPlayer($key->id_users);
+			$score = $this->getScorePerUsers($key->id_users);
 			$id_users = $key->id_users;
 			$username = $key->username;
 			$temp_array = array(
@@ -56,7 +57,7 @@ class ScoreboardController extends Controller{
 		$score_collection = collect($score_array);
 		$score_sorted = $score_collection->sortByDesc('score');
 
-		echo json_encode($score_sorted); die();
+		return response()->json($score_sorted);
 	}
 
 	// Scoreboard Data 
@@ -67,25 +68,18 @@ class ScoreboardController extends Controller{
 					 ->join('score_ctf', 'users_ctf.id_users', '=', 'score_ctf.id_users')
 					 ->orderBy('score', 'desc')
 					 ->get();
-
-		// echo json_encode($data_score); die();
+					 
 		return view('src.users.scoreboard.v_scoreboard', ['score' => $data_score]);
 	}
 
 	// profile Users
 	public function profile()
 	{
-		$select = ['users_ctf.username', 'score_ctf.score'];
-		$data_users = DB::table('users_ctf')->select($select)
+		// Data users Point Score And Username
+		$data_users = DB::table('users_ctf')->select(['users_ctf.username', 'score_ctf.score'])
 				->join('score_ctf', 'users_ctf.id_users', 'score_ctf.id_users')
 				->where('users_ctf.id_users', $_SESSION['id_users'])
 				->first();
-
-		$solved = solved::select(['*'])
-						 ->join('task_ctf', 'solved_ctf.id_task', '=', 'task_ctf.id_task')
-						 ->where('solved_ctf.id_users', $_SESSION['id_users'])
-						 ->get();
-
 				
 		$data = DB::table('users_ctf')->select(['*'])
 				->join('score_ctf', 'users_ctf.id_users', 'score_ctf.id_users')
@@ -94,18 +88,14 @@ class ScoreboardController extends Controller{
 				->where('users_ctf.username', $_SESSION['username'])
 				->toArray();
 		$position = array_search('username', $data) + 1;
-		
-		// echo json_encode($solved); die();
-		
 
-		// Edit Profile
+		// Edit Profile Input Form Value
 		$edit = DB::table('users_ctf')->select(['*'])->where('id_users', $_SESSION['id_users'])->first();
 
 		return view('src.users.profile.v_profile',
 			[
 				'data' => $data_users, 
 				'edit' => $edit, 
-				'solved' => $solved
 		]
 		);
 	}

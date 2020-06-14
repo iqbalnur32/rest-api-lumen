@@ -20,7 +20,7 @@
 									<div class="card border-left-primary shadow h-100 py-2">
 										<div class="card-body">
 											<div class="row no-gutters align-items-center">
-												<button class="btn btn-sm" data-toggle="modal" id="select" data-target="#data_reversing" 
+												<button class="btn btn-sm" data-toggle="modal" id="select" data-target="#data_challange" 
 													data-id_task="<?= $key->id_task ?>"
 													data-name_task="<?= $key->name_task ?>"
 													data-bonus="<?= $key->task_point ?>"
@@ -54,7 +54,7 @@
 									<div class="card border-left-primary shadow h-100 py-2">
 										<div class="card-body">
 											<div class="row no-gutters align-items-center">
-												<button class="btn btn-sm" data-toggle="modal" id="select" data-target="#data_reversing" 
+												<button class="btn btn-sm" data-toggle="modal" id="select" data-target="#data_challange" 
 													data-id_task="<?= $key->id_task ?>"
 													data-name_task="<?= $key->name_task ?>"
 													data-bonus="<?= $key->task_point ?>"
@@ -88,7 +88,7 @@
 									<div class="card border-left-primary shadow h-100 py-2">
 										<div class="card-body">
 											<div class="row no-gutters align-items-center">
-												<button class="btn btn-sm" data-toggle="modal" id="select" data-target="#data_reversing" 
+												<button class="btn btn-sm" data-toggle="modal" id="select" data-target="#data_challange" 
 													data-id_task="<?= $key->id_task ?>"
 													data-name_task="<?= $key->name_task ?>"
 													data-bonus="<?= $key->task_point ?>"
@@ -122,7 +122,7 @@
 									<div class="card border-left-primary shadow h-100 py-2">
 										<div class="card-body">
 											<div class="row no-gutters align-items-center">
-												<button class="btn btn-sm" data-toggle="modal" id="select" data-target="#data_reversing" 
+												<button class="btn btn-sm" data-toggle="modal" id="select" data-target="#data_challange" 
 													data-id_task="<?= $key->id_task ?>"
 													data-name_task="<?= $key->name_task ?>"
 													data-bonus="<?= $key->task_point ?>"
@@ -156,7 +156,7 @@
 									<div class="card border-left-primary shadow h-100 py-2">
 										<div class="card-body">
 											<div class="row no-gutters align-items-center">
-												<button class="btn btn-sm" data-toggle="modal" id="select" data-target="#data_reversing" 
+												<button class="btn btn-sm" data-toggle="modal" id="select" data-target="#data_challange" 
 													data-id_task="<?= $key->id_task ?>"
 													data-name_task="<?= $key->name_task ?>"
 													data-bonus="<?= $key->task_point ?>"
@@ -181,7 +181,7 @@
 	</div>
 </div>
 
-<div class="modal fade" id="data_reversing" tabindex="-1" role="dialog" aria-labelledby="data_reversing" aria-hidden="true">
+<div class="modal fade" id="data_challange" tabindex="-1" role="dialog" aria-labelledby="data_challange" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -208,11 +208,11 @@
 							<p class="text-gray-900" id="hint"></p>
 							<p class="text-gray-900">Author: <span id="author"></span></p>
 							<div class="padding-bottom" style="padding-bottom: 15px;">
-								<form id="frmProducts" name="frmProducts" novalidate="">
+								<form id="frmProducts" name="frmProducts" novalidate=novalidate>
 									<div class="row">
 										<div class="col-lg-10">
 											<input class="form-control" type="hidden" id="id_task" name="id_task" required="">	
-											<input class="form-control" type="text" name="flag" required="" id="flag">	
+											<input class="form-control" type="text" value="" name="flag" required="" id="flag">	
 										</div>
 										<div class="col-lg-2">
 											<div class="">
@@ -224,7 +224,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="tab-pane fade" id="tabTwo">Tab Two Content</div>
+					<div class="tab-pane fade" id="tabTwo">
+						
+					</div>
 				</div>
 			</div>
 		</div>

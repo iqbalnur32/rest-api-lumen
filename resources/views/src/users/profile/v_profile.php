@@ -25,6 +25,10 @@
 								<label class="text-dark">Nama</label>
 								<input name='nama' type="text" class="form-control" value="<?= $edit->nama?>" required>
 							</div>
+							<div class="form-group">
+								<label class="text-dark">Password</label>
+								<input name='password' type="password" class="form-control" value="<?= $edit->password?> ">
+							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
@@ -33,8 +37,8 @@
 							</div>
 							<div class="form-group">
 								<label class="text-dark">Website</label>
-								<input name='website' type="text" class="form-control" value="<?= $edit->website?>" required>
-							</div>
+								<input name='brwebsite' type="text" class="form-control" value="<?= $edit->website?>" required>
+							</div><br><br>
 							<div class="float-right">
 								<button class="btn btn-primary btn-xl" type="submit">Update</button>
 							</div>
@@ -44,38 +48,6 @@
 			</div>
 		</div>
 	</form>
-	<div class="padding" style="padding-bottom: 30px;">
-		
-	</div>
-	<div class="card-header">
-		<h2 class="card-title text-dark text-center">Solved Task</h2>
-	</div>
-	<div class="card-body">	
-		<div class="row">
-			<div class="col-lg-12">
-				<table class="table">  
-					<thead>
-						<tr>
-							<th>No</th>
-							<th class="text-center text-dark">Task Name</th>
-							<th class="text-center text-dark">Task Points</th>
-							<th class="text-center text-dark">Tanggal</th>
-						</tr>
-					</thead>
-					<?php $i = 1; foreach ($solved as $key): ?>
-					<tbody>
-						<tr>
-							<td><?=$i++?></td>
-							<td class="text-center text-dark"><?=$key->name_task?></td>
-							<td class="text-center text-dark"><?=$key->task_point?></td>
-							<td class="text-center text-dark"><?=$key->created_at?></td>
-						</tr>
-					</tbody>
-				<?php endforeach ?>
-			</table>
-		</div>
-	</div>
-</div>
 </div>
 <?= view('src/layouts/footer') ?>
 <!-- Js Challange -->
