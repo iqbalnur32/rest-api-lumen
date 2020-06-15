@@ -64,7 +64,7 @@ class ChallangeController extends Controller
 					$solved->id_users = $_SESSION['id_users'];
 					$solved->id_task = $request->input('id_task');
 					$solved->save();
-					$this->addScore($request);
+					$this->scoreUpdate($request);
 
 					DB::commit();
 					return response()->json($data);
@@ -93,7 +93,7 @@ class ChallangeController extends Controller
 	/*
 		Fungsi Penammbahan Score
 	*/
-	public function addScore(Request $request)
+	public function scoreUpdate(Request $request)
 	{
 		$task = task::find($request->input('id_task'));
 		$score = $task->task_point;

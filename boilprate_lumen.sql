@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 11 Jun 2020 pada 03.54
+-- Waktu pembuatan: 15 Jun 2020 pada 00.57
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.3.13
 
@@ -46,7 +46,8 @@ INSERT INTO `category_ctf` (`id_category`, `category_name`, `description`, `crea
 (3, 'Web', 'Web Security', '2020-06-03 17:12:00', '2020-06-03 17:00:18'),
 (4, 'Misc', 'Miscellaneous', '2020-06-03 23:00:00', '2020-06-03 17:14:00'),
 (5, 'Forensic', 'Forensic', '2020-06-06 16:06:29', '2020-06-06 16:06:29'),
-(7, 'Meachine', 'meachine hacking', '2020-06-10 15:38:03', '2020-06-10 15:38:03');
+(7, 'Meachine', 'meachine hacking', '2020-06-10 15:38:03', '2020-06-10 15:38:03'),
+(8, 'Jancok S', 'Jancok Cok', '2020-06-11 10:16:01', '2020-06-11 10:16:01');
 
 -- --------------------------------------------------------
 
@@ -115,10 +116,11 @@ CREATE TABLE `score_ctf` (
 --
 
 INSERT INTO `score_ctf` (`id_score`, `id_users`, `score`, `created_at`, `updated_at`) VALUES
-(1, 1, 1500, '2020-05-30 18:22:35', '2020-06-07 17:18:03'),
-(2, 2, 700, '2020-05-30 18:31:25', '2020-05-30 18:33:04'),
+(1, 1, 0, '2020-05-30 18:22:35', '2020-06-14 22:49:31'),
+(2, 2, 0, '2020-05-30 18:31:25', '2020-05-30 18:33:04'),
 (3, 3, 0, '2020-06-05 23:42:17', '2020-06-10 15:40:06'),
-(4, 4, 10, '2020-06-05 21:00:00', '2020-06-06 08:54:48');
+(4, 4, 0, '2020-06-05 21:00:00', '2020-06-06 08:54:48'),
+(7, 7, 0, '2020-06-11 08:00:58', '2020-06-11 08:00:58');
 
 -- --------------------------------------------------------
 
@@ -133,22 +135,6 @@ CREATE TABLE `solved_ctf` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `solved_ctf`
---
-
-INSERT INTO `solved_ctf` (`id_solved`, `id_users`, `id_task`, `created_at`, `updated_at`) VALUES
-(1, 2, 2, '2020-05-30 18:22:35', '2020-05-30 18:22:35'),
-(2, 1, 2, '2020-05-30 18:31:25', '2020-05-30 18:31:25'),
-(3, 1, 1, '2020-05-30 18:33:04', '2020-05-30 18:33:04'),
-(4, 1, 20, '2020-06-07 17:06:24', '2020-06-07 17:06:24'),
-(5, 1, 20, '2020-06-07 17:07:27', '2020-06-07 17:07:27'),
-(6, 1, 20, '2020-06-07 17:08:38', '2020-06-07 17:08:38'),
-(7, 1, 20, '2020-06-07 17:08:51', '2020-06-07 17:08:51'),
-(8, 1, 20, '2020-06-07 17:14:53', '2020-06-07 17:14:53'),
-(9, 1, 20, '2020-06-07 17:15:25', '2020-06-07 17:15:25'),
-(10, 1, 20, '2020-06-07 17:18:03', '2020-06-07 17:18:03');
 
 -- --------------------------------------------------------
 
@@ -173,7 +159,7 @@ CREATE TABLE `task_ctf` (
 --
 
 INSERT INTO `task_ctf` (`id_task`, `id_category`, `name_task`, `hint`, `task_point`, `flag`, `author`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Crack Saya Cok', 'Seoarang ayah memasukan kata sandi yang salah dan anak membantu unutk menjbolnya apakah anak dapat membantu ayah nya', 200, 'CTF{hahaah_benar}', 'iqbal', '2020-06-04 16:14:51', '2020-06-04 16:14:51'),
+(1, 1, 'Crack Saya Cok', '<p>Seoarang ayah memasukan kata sandi yang salah dan anak membantu unutk menjbolnya apakah anak dapat membantu ayah nya</p>\n', 19, 'CTF{hahaah_benar}', 'iqbal', '2020-06-04 16:14:51', '2020-06-04 16:14:51'),
 (2, 1, 'Reverse Gambar Ini', '<p>Seoarang ayah memasukan kata sandi yang salah dan anak membantu unutk menjbolnya apakah anak dapat membantu ayah nya</p>\n', 200, 'CTF{hahaah_benar}', 'iqbal', '2020-06-04 16:14:51', '2020-06-04 16:14:51'),
 (3, 1, 'Crack Saya Cok', 'Seoarang ayah memasukan kata sandi yang salah dan anak membantu unutk menjbolnya apakah anak dapat membantu ayah nya', 200, 'CTF{hahaah_benar}', 'iqbal', '2020-06-04 16:14:51', '2020-06-04 16:14:51'),
 (4, 1, 'Crack Saya Cok', 'Seoarang ayah memasukan kata sandi yang salah dan anak membantu unutk menjbolnya apakah anak dapat membantu ayah nya', 200, 'CTF{hahaah_benar}', 'iqbal', '2020-06-04 16:14:51', '2020-06-04 16:14:51'),
@@ -205,7 +191,7 @@ CREATE TABLE `users_ctf` (
   `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `website` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
   `login` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_login` date NOT NULL,
@@ -219,10 +205,11 @@ CREATE TABLE `users_ctf` (
 --
 
 INSERT INTO `users_ctf` (`id_users`, `username`, `nama`, `email`, `password`, `website`, `login`, `last_login`, `level_id`, `created_at`, `updated_at`) VALUES
-(1, 'iqbalnur32', 'iqbal Nur', 'dkm@dkm.com', '1234', 'dkm@dkm.com', 'true', '2020-06-08', 2, '2020-05-30 15:06:50', '2020-06-08 13:27:44'),
+(1, 'iqbalnur32', 'iqbal Nur', 'dkm@dkm.com', '1234', 'dkm@dkm.com', 'true', '2020-06-14', 2, '2020-05-30 15:06:50', '2020-06-13 01:59:31'),
 (2, 'pejuangsubuh', 'subuh', 'subuh@gmail.com', '1234', 'subuh@gmail.com', 'true', '2020-06-06', 2, '2020-05-30 18:15:02', '2020-06-06 08:59:12'),
 (3, 'admin', 'admin', 'admin@admin.com', '1234', 'admin@admin.com', 'true', '2020-06-10', 1, '2020-06-01 17:10:00', '2020-06-10 15:40:06'),
-(4, 'akbar32', 'Akbar Nur', 'akbar32@gmail.com', 'akbar1234', 'akbar32@gmail.com', 'true', '2020-06-06', 2, '2020-06-05 23:42:17', '2020-06-06 09:04:55');
+(4, 'akbar32', 'Akbar Nur', 'akbar32@gmail.com', 'akbar1234', 'akbar32@gmail.com', 'true', '2020-06-06', 2, '2020-06-05 23:42:17', '2020-06-06 09:04:55'),
+(7, 'sumono', 'sumono', 'sumono@gmail.com', '1234', 'https://a.com/', 'false', '2020-06-11', 2, '2020-06-11 08:00:58', '2020-06-11 08:00:58');
 
 -- --------------------------------------------------------
 
@@ -278,7 +265,9 @@ ALTER TABLE `score_ctf`
 -- Indeks untuk tabel `solved_ctf`
 --
 ALTER TABLE `solved_ctf`
-  ADD PRIMARY KEY (`id_solved`);
+  ADD PRIMARY KEY (`id_solved`),
+  ADD KEY `id_task` (`id_task`),
+  ADD KEY `id_users` (`id_users`);
 
 --
 -- Indeks untuk tabel `task_ctf`
@@ -307,7 +296,7 @@ ALTER TABLE `users_level`
 -- AUTO_INCREMENT untuk tabel `category_ctf`
 --
 ALTER TABLE `category_ctf`
-  MODIFY `id_category` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_category` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
@@ -325,13 +314,13 @@ ALTER TABLE `pengumuman_ctf`
 -- AUTO_INCREMENT untuk tabel `score_ctf`
 --
 ALTER TABLE `score_ctf`
-  MODIFY `id_score` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_score` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `solved_ctf`
 --
 ALTER TABLE `solved_ctf`
-  MODIFY `id_solved` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_solved` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `task_ctf`
@@ -343,7 +332,7 @@ ALTER TABLE `task_ctf`
 -- AUTO_INCREMENT untuk tabel `users_ctf`
 --
 ALTER TABLE `users_ctf`
-  MODIFY `id_users` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_users` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `users_level`
