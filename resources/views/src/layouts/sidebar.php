@@ -48,6 +48,12 @@
             <span>Management User</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a style="<?= $active === 'settings' ? 'background-color: white; color:#0ca4eb' : false ?>" class="nav-link" href="<?= url('admin/settings')?>">
+            <i style="<?= $active === 'settings' ? 'background-color: white; color:#0ca4eb' : false ?>" class="fas fa-fw fa-user"></i>
+            <span>Settings Profile</span>
+          </a>
+        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">

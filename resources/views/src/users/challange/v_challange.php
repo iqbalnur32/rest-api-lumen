@@ -8,6 +8,31 @@
 	</div>
 	<br>
 	<div class="row">
+		<div class="col-lg-12">
+			<form method="get" action="<?= url('') ?>">
+				<div class="card">
+					<div class="card-header">
+
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-lg-10">
+								<select class="form-control" name="select_category">
+									<?php foreach ($kategori as $key): ?>
+										<option value="<?= $key->category_name?>"><?= $key->category_name?></option>
+									<?php endforeach ?>
+								</select>
+							</div>
+							<div class="col-lg-2">
+								<button name="cari" type="submit" class="btn btn-xl btn-primary">Cari</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row">
 		<div class="col-lg-12 col-md-12" style="padding-bottom: 15px;">
 			<div class="container-fluid">
 				<h4 class="h3 mb-0 text-gray-900" style="font-family: 'Nova Square', cursive;">Reversing Engineering</h4>
@@ -181,6 +206,7 @@
 	</div>
 </div>
 
+<!-- Modal Submit Flag -->
 <div class="modal fade" id="data_challange" tabindex="-1" role="dialog" aria-labelledby="data_challange" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">

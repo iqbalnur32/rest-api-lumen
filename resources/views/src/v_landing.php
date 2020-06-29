@@ -95,6 +95,10 @@
 
 	<!-- Jquery JS -->
 	<script src="/template/vendor/jquery/jquery.min.js"></script>
+	
+	<!-- Sweet Alert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 	<!-- Bootstrap Js -->
 	<script src="/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- Counter JS -->
@@ -110,6 +114,15 @@
 		$(document).ready(function() {
 			runningText();
 		})
+
+		// Swal Alert Login Failed
+		<?php 
+		if(isset($type)){
+			?>
+			swal("<?= $title ?>", "<?= $msg ?>", "<?= $type ?>");
+			<?php
+		}
+		?>
 
 		// $(document).ready(function() {          
 		// 	$('#loginModal').modal('show');

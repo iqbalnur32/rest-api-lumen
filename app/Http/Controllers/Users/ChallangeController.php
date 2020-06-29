@@ -7,6 +7,7 @@ use App\Models\Task_CTF as task;
 use App\Models\Solved_CTF as solved;
 use App\Models\Score_CTF as score;
 use App\Models\Users as users;
+use App\Models\Category_CTF as kategori;
 use DB;
 use Carbon\Carbon;
 use Validator;
@@ -21,18 +22,57 @@ class ChallangeController extends Controller
 
 	private $table = 'task_ctf';
 
-	// 
+	private function searchCategory($status = false)
+	{
+		$select = [
+
+		];
+
+		$data = kategori::select(['*'])
+		->join('task_ctf', 'category_ctf.id_category', '=', 'task_ctf.id_category');
+
+		if ($status) {
+			$category = $_GET['kategori'];
+
+			$data->where('id_category', 'like', '&'.$category.'&');
+		}
+
+		$datas = $data->get();
+
+		$output = [];
+
+		foreach ($output as $key => $value) {
+			$output[] = [
+				'id_category' => $value->id_category
+			];
+		}
+
+		return $output;
+	}
+
+	// Index Challange
 	public function index(Request $request)
 	{
 		// $task = task::orderBy('id_category', 'asc')->get();
 		
+		// if (isset($_GET['kategori'])) {
+		// 	$data = $this->searchCategory(true);
+		// }else{
+		// 	$data = $this->searchCategory(true);
+		// }
+
 		// Query Task And Solved Challange 
 		$solved = solved::where('id_users', $_SESSION['id_users'])->pluck('id_task');
 		$task = task::whereNotIn('id_task', $solved)->orderBy('id_category', 'desc')->get();
+		$kategori = kategori::all();
+
+		// echo json_encode($task); die();
+
+		
 
 		// var_dump($solved); die();
 
-		return view('src.users.challange.v_challange', ['task' => $task]);
+		return view('src.users.challange.v_challange', ['task' => $task, 'kategori' =>  $kategori]);
 	}
 
 	/*
@@ -103,7 +143,7 @@ class ChallangeController extends Controller
 		if(!$user_score || $user_score == null){
 			$user_score = Score::create([
                 'id_users' => $_SESSION['id_users'],
-                'score' => 0
+                'score' => 5
             ]);
 		}
 

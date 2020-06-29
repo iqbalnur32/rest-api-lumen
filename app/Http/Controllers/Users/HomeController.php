@@ -29,15 +29,26 @@ class HomeController extends Controller
 		return response()->json($checkSolvedFlag);					 
 	}
 
-	// Index Home Users
+
+	/*
+		Index Home Users
+	*/
 	public function index()
 	{	
-		$solved = solved::select(['*'])
+		// Solved Task By Per Users
+		$solved_task = solved::select(['*'])
 						 ->join('task_ctf', 'solved_ctf.id_task', '=', 'task_ctf.id_task')
 						 ->where('solved_ctf.id_users', $_SESSION['id_users'])
 						 ->get();
-
-		return view('src.users.v_home', ['solved' => $solved]);
+		
+		// Persentase Solved
+		$solved = solved::where('id_users', $_SESSION['id_users'])->count();
+		$total = task::count();
+		$total_persentase = $solved / $total * 100;
+		
+		// return $solved; die();
+		
+		return view('src.users.v_home', ['solved' => $solved_task, 'total_persentase' => $total_persentase]);
 	}
 
 	// Landing Page

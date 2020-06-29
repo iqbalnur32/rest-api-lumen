@@ -19,9 +19,120 @@ class AdminController extends Controller
 	}
 
 	public function index()
-	{
-		return view('src.admin.v_home');
+	{	
+		// Top Score 
+		$top_score = score::select(['users_ctf.username', 'users_ctf.id_users', 'score_ctf.score'])
+        				->join('users_ctf', 'score_ctf.id_users', '=', 'users_ctf.id_users')
+        				->orderBy('score_ctf.score', 'desc')
+        				->where('users_ctf.level_id', '=', 2)
+        				// ->pluck('users_ctf.id_users')
+        				->pluck('users_ctf.username')
+        				->toArray();
+
+        // $test = DB::table('test')->groupBy('nama')->count();
+
+        // print_r($test); die();
+
+		return view('src.admin.v_home', ['top_score' => $top_score]);
 	}
+
+	/*
+		Static User Jumlah Users Sekarang
+	*/
+	public function staticUser($tanggal = null)
+	{
+		/*$month = explode(" ", $tanggal);
+        $explode_tanggal = $month[0];*/
+        $start = date('Y-m-d', strtotime($tanggal));
+        $end = date("Y-m-t", strtotime($start));
+
+		$user_static = Users::select(['last_login', DB::raw('count(*) as login') ])
+					->groupBy('last_login')
+					->whereBetween('last_login', [$start, $end])
+					->get();
+
+		return response()->json([
+			'masuk' => $start,
+			'keluar' => $end,
+			'data' => $user_static
+		]);
+	}
+
+	/*
+		Fungsi Score Tertinggi
+	*/
+	public function topScore($tanggal = null)
+	{
+/*		$month = explode(" ", $tanggal);
+        $explode_tanggal = $month[0];
+        $start = date('Y-m-d', strtotime($tanggal));
+        $end = date("Y-m-t", strtotime($start));*/
+
+        $score = score::select(['users_ctf.username', 'users_ctf.id_users', 'score_ctf.score'])
+        				->join('users_ctf', 'score_ctf.id_users', '=', 'users_ctf.id_users')
+        				->orderBy('score_ctf.score', 'desc')
+        				->where('users_ctf.level_id', '=', 2)
+        				// ->pluck('users_ctf.id_users')
+        				->pluck('users_ctf.username')
+        				->toArray();
+		
+		return response()->json([
+			'data' => $score
+		]);
+
+	}
+
+
+	/*
+		Setting Profile
+	*/
+	public function settingsIndex()
+	{
+		// Setting Users First Data
+		$users = Users::where('id_users', $_SESSION['id_users'])->first();
+		return view('src.admin.v_profile', ['users' => $users]);
+	}
+
+	/*
+		Process Update Setting
+	*/
+	public function settingsProccess(Request $request)
+	{
+		DB::beginTransaction();
+
+		try {
+
+			$this->validate($request, [
+				'password' => 'required|string|confirmed',
+			]);
+
+			if ($request->input('password')) {
+				$update = Users::find($request->input('id_users'));
+				$update->username = $request->input('username');
+				$update->nama = $request->input('nama');
+				$update->email = $request->input('email');
+				$update->website = $request->input('website');
+				$update->update();
+				DB::commit();
+				return redirect('admin/settings');	
+			}else{
+				$update = Users::find($request->input('id_users'));
+				$update->username = $request->input('username');
+				$update->nama = $request->input('nama');
+				$update->email = $request->input('email');
+				$update->website = $request->input('website');
+				$update->password = $request->input('password');
+				$update->update();
+				DB::commit();
+				return redirect('admin/settings');	
+			}
+
+		} catch (Exception $e) {
+			DB::rollback();
+			print_r($e);
+		}
+	}
+
 
 	// Add Challange
 	public function addChallange()
@@ -47,6 +158,7 @@ class AdminController extends Controller
 			'name_task' => $request->input('name_task'), 
 			'id_category' => $request->input('id_category'), 
 			'author' => $request->input('author'), 
+			// 'author' => $_SESSION['username'], 
 			'task_point' => $request->input('task_point'), 
 			'flag' => $request->input('flag'), 
 			'hint' => $request->input('hint'), 

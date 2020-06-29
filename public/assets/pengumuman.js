@@ -4,7 +4,7 @@ $(document).ready(function() {
 	$('.content_pengumuman_add').ckeditor();
 
 	//Get URl Base
-	var url = 'http://localhost:8080/admin/add-pengumuman';
+	var url = 'http://localhost:8080/';
 
 	// Open Modal Edit Get Value
 	$(document).on('click', '.open_modal', function() {
@@ -12,7 +12,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "GET",
-			url: url + '/edit/' + id_pengumuman,
+			url: url + 'admin/add-pengumuman/edit/' + id_pengumuman,
 			success: function(data){
 				// console.log(data)
 				$('#id_pengumuman').val(data.id_pengumuman);
@@ -49,7 +49,7 @@ $(document).ready(function() {
 
 		 // console.log(id_pengumuman);
 		 $.ajax({
-		 	url: my_url + '/edit/' + id_pengumuman,
+		 	url: my_url + 'admin/add-pengumuman/edit/' + id_pengumuman,
 		 	type: type,
 		 	data: formData,
 		 	dataType: 'JSON',

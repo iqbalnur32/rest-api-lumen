@@ -39,7 +39,8 @@
 				</div>
 				<div class="form-group">
 					<label>Author CTF</label>
-					<input class="form-control" type="text" name="author" required>
+					<input class="form-control" type="text" name="author" required >
+					<small style="color: red;">* Author Berdasarkan Username Anda</small>
 				</div>
 				<div class="form-group">
 					<label class="text-dark">Hint CTF</label>

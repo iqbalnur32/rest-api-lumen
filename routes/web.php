@@ -54,6 +54,12 @@ $router->group(['middleware' => ['session', 'is_users'], 'prefix' => 'users', 'n
 // Admin Routing 
 $router->group(['middleware' => ['session_admin', 'is_admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function() use($router) {
 	$router->get('/', 'AdminController@index');
+	$router->get('/lastlogin/users/{tanggal}', 'AdminController@staticUser');
+	$router->get('/top-score/users/{tanggal}', 'AdminController@topScore');
+
+	//Setting Profile Admin
+	$router->get('/settings', 'AdminController@settingsIndex'); 
+	$router->post('/settings', 'AdminController@settingsProccess'); 
 
 	// Category CTF 
 	$router->get('/ctf-category', 'CategoryCTF@category');

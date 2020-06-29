@@ -7,6 +7,8 @@ use App\Models\Score_CTF as Score;
 use Session;
 use Validator;
 use DB;
+use Illuminate\Support\Facades\Hash;
+use Carbon;
 
 class AuthController extends Controller
 {
@@ -22,14 +24,18 @@ class AuthController extends Controller
 
 	public function login()
 	{
-		// echo '<pre>',print_r($data),'</pre>'; die();
-		
 		return view('src/auth/v_login');
 	}
 
 	// Fungsi Login
 	public function loginProcess(Request $request)
 	{
+		$failed_alert = [
+			'type' => 'error',
+			"title" => 'Error !',
+			'msg' => 'Gagal Melakukan Login'
+		];
+
 		try {
 			
 			$this->validate($request, [
@@ -38,7 +44,7 @@ class AuthController extends Controller
 			]);
 
 			$email = $request->input('email');
-			$password = $request->input('password');
+			$password = sha1($request->input('password'));
 
 			$where = [
 				'email' => $email,
@@ -59,20 +65,20 @@ class AuthController extends Controller
 
     			if ($data->level_id == 1) {
     				// print_r($dataSession); die();
+    				DB::table($this->table_users)->where('email', $request->input('email'))->update(array('last_login' => date("Y-m-d"), 'login' => 'true'));
     				return redirect(url('admin'));
 
     			}else if ($data->level_id == 2) {
 
     				DB::table($this->table_users)->where('email', $request->input('email'))->update(array('last_login' => date("Y-m-d"), 'login' => 'true'));
+
     				return redirect(url('users'));
     			}else{
-    				Session::flash('gagal', 'Login Gagal Pastikan Akun Anda Benar');
-    				return redirect('login');
+    				return view('src.v_landing', $failed_alert);
     			}
 
 			}else{
-				// Session::flash('gagal', 'Login Gagal Pastikan Akun Anda Benar');
-				return redirect('login');
+				return view('src.v_landing', $failed_alert);
 			}	
 
 		} catch (Exception $e) {
@@ -80,6 +86,7 @@ class AuthController extends Controller
 		}
 	}
 
+	// Register Index
 	public function register()
 	{
 		return view('src.auth.v_register');
@@ -88,6 +95,12 @@ class AuthController extends Controller
 	// Register Fungsi Users
 	public function registerProcess(Request $request)
 	{
+		$failed_alert = [
+			'type' => 'error',
+			"title" => 'Error !',
+			'msg' => 'Gagal Melakukan Login'
+		];
+		
 		try {
 			$rules = [
 				'email' => 'required|string|email|unique:users_ctf,email',
@@ -106,7 +119,7 @@ class AuthController extends Controller
 			$insert->username = $request->input('username');
 			$insert->nama = $request->input('nama');
 			$insert->email = $request->input('email');
-			$insert->password = $request->input('password');
+			$insert->password = sha1($request->input('password'));
 			$insert->website = 'https://a.com/';
 			$insert->level_id = 2;
 			$insert->login = 'false';
@@ -121,23 +134,23 @@ class AuthController extends Controller
 
 				$insert2 = new Score;
 				$insert2->id_users = $id_user->id_users;
-				$insert2->score = 0;
+				$insert2->score = 5;
 				$save2 = $insert2->save();
 
 				if ($save2) {
-					return redirect('/login');
+					return redirect('/');
 				}else{
 					Users::where('email',$request->input('email'))->delete();
-					return redirect('/register');
+					return view('src.auth.v_register', $failed_alert);
 				}
 
 			}else{
 				Users::where('email',$request->input('email'))->delete();
-				return redirect('/register');
+				return view('src.auth.v_register', $failed_alert);
 			}
 
 		} catch (Exception $e) {
-			print_r($e);
+			return view('src.auth.v_register', $failed_alert);
 		}
 	}
 
