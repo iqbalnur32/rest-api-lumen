@@ -25,6 +25,13 @@ $app->withFacades();
 
 $app->withEloquent();
 
+$app->configure('smsto');
+
+// Add SmsTo Facade
+if (!class_exists('SmsTo')) {
+    class_alias('Intergo\SmsTo\Facades\SmsToFacade', 'SmsTo');
+}
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -61,25 +68,17 @@ $app->routeMiddleware([
      'token' => App\Http\Middleware\TokenMiddleware::class
 ]);
 $app->routeMiddleware([
-     'session' => App\Http\Middleware\HandleSession::class
+     'status' => App\Http\Middleware\statusUsers::class
 ]);
-$app->routeMiddleware([
-     'session_admin' => App\Http\Middleware\SessionAdmin::class
-]);
-
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
 ]);
-
 $app->routeMiddleware([
-    'is_users' => App\Http\Middleware\isUsers::class,
+    'jwt.auth' => App\Http\Middleware\JWTAuth::class,
 ]);
 
-$app->routeMiddleware([
-    'is_admin' => App\Http\Middleware\isAdmin::class,
-]);
-$app->routeMiddleware([
-    'cors' => App\Http\Middleware\CorsMiddleware::class,
+$app->middleware([
+    App\Http\Middleware\CorsMiddleware::class,
 ]);
 
 /*
@@ -96,8 +95,8 @@ $app->routeMiddleware([
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EncryptDcrypt::class);
-
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\EventServiceProvider::class);
+$app->register(Intergo\SmsTo\LumenServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

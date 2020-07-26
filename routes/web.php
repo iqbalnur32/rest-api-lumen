@@ -6,87 +6,44 @@
 |--------------------------------------------------------------------------
 |
 | Here is where you can register all of the routes for an application.
+| It is a breeze. Simply tell Lumen the URIs it should respond to
+| and give it the Closure to call when that URI is requested.
+|
+*/
 
-/*$router->get('/', function () use ($router) {
+$router->get('/', function () use ($router) {
     return $router->app->version();
-});*/
-
-// Login Controller
-// $router->get('/login', 'AuthController@login');
-$router->post('/login', 'AuthController@loginProcess');
-
-// Register Controller
-$router->get('/register', 'AuthController@register');
-$router->post('/register', 'AuthController@registerProcess');
-
-//Logout 
-$router->get('/logout', 'AuthController@Logout');
-
-// Landing Page 
-$router->get('/', 'Users\HomeController@landingPage');
-
-// Users Controller
-$router->group(['middleware' => ['session', 'is_users'], 'prefix' => 'users', 'namespace' => 'Users'], function() use($router) {
-	$router->get('/', 'HomeController@index');
-	
-	// Submit Flag 
-	$router->get('/challange', 'ChallangeController@index');
-	$router->post('/challange', 'ChallangeController@CheckSubmitFlag');
-	
-	// ScoreBoard
-	$router->get('/scoreboard', 'ScoreboardController@scoreboard');
-	
-	// Profile Users
-	$router->get('/profile', 'ScoreboardController@profile');
-	$router->post('/profile/update', 'UsersController@updateProfile');
-	
-	// Pengumuman Users
-	$router->get('/notification', 'UsersController@pengumumanUsers');
-	
-	// Get Score 
-	$router->get('/get-score', 'ScoreboardController@getScores');
-
-	// Static Data Monitoring Users
-	$router->get('/static/solved', 'HomeController@solvedStatic');
-
 });
 
-// Admin Routing 
-$router->group(['middleware' => ['session_admin', 'is_admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function() use($router) {
-	$router->get('/', 'AdminController@index');
-	$router->get('/lastlogin/users/{tanggal}', 'AdminController@staticUser');
-	$router->get('/top-score/users/{tanggal}', 'AdminController@topScore');
+$router->get('/key', function() {
+    return \Illuminate\Support\Str::random(32);
+});
 
-	//Setting Profile Admin
-	$router->get('/settings', 'AdminController@settingsIndex'); 
-	$router->post('/settings', 'AdminController@settingsProccess'); 
+// Auth Controllers
+$router->post('api/auth/login', 'Auth\AuthController@loginProcess');
+$router->post('api/auth/register', 'Auth\AuthController@registerProcess');
+$router->post('api/otp', 'Auth\AuthController@sendOTP');
+$router->post('api/callback', 'Auth\AuthController@callback');
 
-	// Category CTF 
-	$router->get('/ctf-category', 'CategoryCTF@category');
-	$router->post('/ctf-category', 'CategoryCTF@Addcategory');
-	$router->get('/ctf-category/edit/{id_category}', 'CategoryCTF@categoryEdit');
-	$router->put('/ctf-category/edit/{id_category}', 'CategoryCTF@categoryEditProcess');
-	$router->get('/ctf-category/delete/{id_category}', 'CategoryCTF@categoryDelete');
+// Api Petani
+$router->group(['middleware' => ['jwt.auth'], 'prefix' => 'api/v1/', 'namespace' => 'Api'], function() use ($router) {
+	
+	// Artikel Petani
+	$router->get('artikel/getAll', 'PetaniController@ArtikelGetAll');
+	$router->get('artikel/get/{id}', 'PetaniController@ArtikelGetById');
+	$router->post('artikel', 'PetaniController@ArtikelPost');
+	$router->put('artikel/edit/{id}', 'PetaniController@ArtikelEdit');
 
-	// Challange CTF
-	$router->get('/add-challange', 'AdminController@addChallange');
-	$router->post('/add-challange', 'AdminController@addChallangeProcess');
-	$router->get('/add-challange/edit/{id_task}', 'AdminController@addChallangeEdit');
-	$router->put('/add-challange/edit/{id_task}', 'AdminController@addChallangeEditProcess');
-	$router->get('/add-challange/delete/{id_task}', 'AdminController@addChallangeDelete');
+	// Update & Delete Profile & Get Users By Id
+	$router->get('profile', 'ProfileController@GetPorfileById');
+	$router->get('profile/delete/{id_users}', 'ProfileController@deleteUsers');
+	$router->put('profile/edit/{id_users}', 'ProfileController@profileEdit');
+	
+	// Forum Disccus Petani
+	$router->get('forum/getAll/reply', 'PetaniController@getAll');
+	$router->post('forum/add', 'PetaniController@ForumPost');
+	$router->put('forum/edit/{id_topic}', 'PetaniController@ForumEdit');
 
-	// Pengumuman CTF
-	$router->get('/add-pengumuman', 'AdminController@addPengumuman');
-	$router->post('/add-pengumuman', 'AdminController@addPengumumanProcess');
-	$router->get('/add-pengumuman/edit/{id_pengumuman}', 'AdminController@editPengumuman');
-	$router->put('/add-pengumuman/edit/{id_pengumuman}', 'AdminController@editPengumumanProcess');
-	$router->get('/add-pengumuman/delete/{id_pengumuman}', 'AdminController@pengumumanDelete');
-
-	// Management User
-	$router->get('/management-user', 'AdminController@managementUser');
-	$router->post('/management-user/add', 'AdminController@manegemntUserAdd');
-	$router->get('/management-user/edit/{id_users}', 'AdminController@managementEdit');
-	$router->put('/management-user/edit/{id_users}', 'AdminController@managementEditProcess');
-	$router->get('/management-user/delete/{id_users}', 'AdminController@managementDelete');
-
+	// Logout Users
+	$router->get('logout', 'ProfileController@Logout');
 });

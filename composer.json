@@ -6,6 +6,8 @@
     "type": "project",
     "require": {
         "php": "^7.2",
+        "firebase/php-jwt": "^5.2",
+        "intergo/sms.to-laravel-lumen": "^0.0.28",
         "laravel/lumen-framework": "^6.0"
     },
     "require-dev": {
