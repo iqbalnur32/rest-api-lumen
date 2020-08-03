@@ -60,7 +60,7 @@ class ProfileController extends Controller
 				'password' => 'required|string',
 				'username' => 'required|string',
 			]);
-
+		
 			$users = users::find($id_users);
 			$users->username = $request->input('username');
 			$users->email = $request->input('email');
@@ -99,6 +99,45 @@ class ProfileController extends Controller
 		} catch (Exception $e) {
 			// print_r($e);
 			return $this->respHandler->internalError();
+		}
+	}
+
+	// Update Password Profile
+	public function UpdatePassword(Request $request)
+	{
+		try {
+			
+			$this->validate($request, [
+				'password_current' => 'required|string',
+				'password_new' => 'required|string|',
+				'password_confirmation' => 'required|same:password_new',
+			]);
+
+			$id_users = $this->getToken->getID($request); // jwt token header getId
+			$password = $request->input('password_current');
+
+			$where = [
+				'password' => $password,
+				'id_users' => $id_users
+			];
+
+			$data = users::where($where)->first();
+
+			if ($data) {
+
+				$users_pass = users::find($id_users);
+				$users_pass->password = $request->input('password_new');
+				$users_pass->update();
+
+				return $this->respHandler->resSuccess(200, 'Success', ['data' => $users_pass]);
+
+			} else {
+				return $this->respHandler->resError(401, 'Error', 'Password Lama Tidak Cocok');
+			}
+
+		} catch (Exception $e) {
+
+			return $this->respHandler->internalError();	
 		}
 	}
 

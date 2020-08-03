@@ -34,16 +34,30 @@ $router->group(['middleware' => ['jwt.auth'], 'prefix' => 'api/v1/', 'namespace'
 	$router->post('artikel', 'PetaniController@ArtikelPost');
 	$router->put('artikel/edit/{id}', 'PetaniController@ArtikelEdit');
 
-	// Update & Delete Profile & Get Users By Id
+	// Update & Delete Profile & Get Users By Id & Update Password
 	$router->get('profile', 'ProfileController@GetPorfileById');
 	$router->get('profile/delete/{id_users}', 'ProfileController@deleteUsers');
 	$router->put('profile/edit/{id_users}', 'ProfileController@profileEdit');
+	$router->put('profile/update-pw', 'ProfileController@UpdatePassword');
 	
 	// Forum Disccus Petani
 	$router->get('forum/getAll/reply', 'PetaniController@getAll');
 	$router->post('forum/add', 'PetaniController@ForumPost');
 	$router->put('forum/edit/{id_topic}', 'PetaniController@ForumEdit');
 
+	// Toko Petani 
+	$router->post('toko/add', 'TokoPetani@TokoPetaniAdd');
+	$router->put('toko/update', 'TokoPetani@UpdateToko');
+	$router->post('toko/delete/{id_toko}', 'TokoPetani@DeleteToko');
+
+	// Add Produk
+	$router->post('toko/produk/add', 'TokoPetani@ProdukTokoAdd');
+	$router->put('toko/produk/update', 'TokoPetani@UpdateTokoProduk');
+
 	// Logout Users
 	$router->get('logout', 'ProfileController@Logout');
 });
+$router->get('toko/test', 'Api\TokoPetani@test');
+
+// Test data 1 minggu terakhir
+$router->get('bulan/{tanggal}', 'Api\TokoPetani@bulan');
